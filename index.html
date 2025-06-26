@@ -93,10 +93,16 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 30px;
-            font-size: 3rem;
-            color: #2a152f;
             border: 4px solid rgba(241, 183, 255, 0.3);
             animation: pulse 2s infinite;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 80px;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
         }
 
         @keyframes pulse {
@@ -423,6 +429,15 @@
                 padding: 8px 16px;
                 font-size: 12px;
             }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo img {
+                width: 70px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -441,7 +456,10 @@
             .logo {
                 width: 80px;
                 height: 80px;
-                font-size: 2rem;
+            }
+
+            .logo img {
+                width: 60px;
             }
 
             .countdown-item {
@@ -506,7 +524,7 @@
         <div class="main-content">
             <!-- Logo -->
             <div class="logo floating">
-                ✨
+                <img src="logo.png" alt="Wunda Finds Logo">
             </div>
 
             <!-- Main Title -->
