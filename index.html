@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - Wunda Finds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #2a152f;
+            color: #f1b7ff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Starry Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 24px;
+            height: 18px;
+            opacity: 0.4;
+            animation: twinkle 4s infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            25% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            75% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            background: rgba(241, 183, 255, 0.1);
+            border: 1px solid rgba(241, 183, 255, 0.2);
+            border-radius: 30px;
+            padding: 80px 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(241, 183, 255, 0.1);
+            margin: auto;
+        }
+
+        /* Logo */
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #f1b7ff, #d8a7ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 3rem;
+            color: #2a152f;
+            border: 4px solid rgba(241, 183, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(241, 183, 255, 0.4);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 20px rgba(241, 183, 255, 0);
+            }
+        }
+
+        /* Typography */
+        .main-title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f1b7ff, #d8a7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            line-height: 1.7;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .countdown-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(241, 183, 255, 0.15);
+            border: 1px solid rgba(241, 183, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px 15px;
+            min-width: 80px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .countdown-item:hover {
+            background: rgba(241, 183, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #f1b7ff, #d8a7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Newsletter Signup */
+        .newsletter-section {
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .newsletter-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #f1b7ff;
+        }
+
+        .newsletter-subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+
+        .newsletter-form {
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-right: 140px;
+            /* Make space for the button */
+            border: 2px solid rgba(241, 183, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(241, 183, 255, 0.1);
+            color: #f1b7ff;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #f1b7ff;
+            background: rgba(241, 183, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(241, 183, 255, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(241, 183, 255, 0.6);
+        }
+
+        .newsletter-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #f1b7ff, #d8a7ff);
+            color: #2a152f;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 5px 15px rgba(241, 183, 255, 0.3);
+        }
+
+        /* Social Links */
+        .social-section {
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .social-title {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(241, 183, 255, 0.2);
+            border: 1px solid rgba(241, 183, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f1b7ff;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, #f1b7ff, #d8a7ff);
+            color: #2a152f;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(241, 183, 255, 0.3);
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            margin: 40px 0;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .progress-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(241, 183, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #f1b7ff, #d8a7ff);
+            border-radius: 10px;
+            width: 0%;
+            animation: progressAnimation 3s ease-out 1.5s forwards;
+        }
+
+        @keyframes progressAnimation {
+            to {
+                width: 75%;
+            }
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating Animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 60px 30px;
+            }
+
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .countdown {
+                gap: 15px;
+            }
+
+            .countdown-item {
+                min-width: 70px;
+                padding: 15px 10px;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .newsletter-input {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .newsletter-input {
+                padding-right: 120px;
+            }
+
+            .newsletter-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .main-content {
+                padding: 40px 20px;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 12px 8px;
+            }
+
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .newsletter-input {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .newsletter-input {
+                padding: 12px 15px;
+                padding-right: 100px;
+                font-size: 14px;
+            }
+
+            .newsletter-btn {
+                padding: 6px 12px;
+                font-size: 11px;
+                right: 3px;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 200;
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Starry Background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Logo -->
+            <div class="logo floating">
+                ✨
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="main-title">Coming Soon</h1>
+            <p class="subtitle">Something magical is brewing...</p>
+            <p class="description">
+                We're putting the finishing touches on our cosmic marketplace. Get ready to discover amazing finds
+                that will add style and wonder to your everyday life. From trendy accessories to unique treasures,
+                Wunda Finds is almost here! ✨
+            </p>
+
+
+            <!-- Progress Bar -->
+            <div class="progress-section">
+                <h3 class="progress-title">🔧 Development Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p class="progress-text">75% Complete - Almost ready for launch!</p>
+            </div>
+
+            <!-- Newsletter Signup -->
+            <div class="newsletter-section">
+                <h3 class="newsletter-title">🔔 Get Notified</h3>
+                <p class="newsletter-subtitle">Be the first to know when we launch and get exclusive early access!</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required
+                        id="emailInput">
+                    <button type="submit" class="newsletter-btn">
+                        Notify Me! 🚀
+                    </button>
+                </form>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-section">
+                <h3 class="social-title">Follow our journey</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Instagram">📷</a>
+                    <a href="#" class="social-link" title="Twitter">🐦</a>
+                    <a href="#" class="social-link" title="Facebook">📘</a>
+                    <a href="#" class="social-link" title="TikTok">🎵</a>
+                    <a href="#" class="social-link" title="WhatsApp">💬</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <strong>🎉 You're on the list!</strong><br>
+        We'll notify you as soon as we launch.
+    </div>
+
+    <script>
+        // Generate animated bow ribbons with better spacing
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfRibbons = 60; // Reduced for better performance
+
+            // Clear any existing stars
+            starsContainer.innerHTML = '';
+
+            // Create a grid-based system to ensure better distribution
+            const gridCols = 10;
+            const gridRows = 8;
+            const cellWidth = 100 / gridCols;
+            const cellHeight = 100 / gridRows;
+
+            // Create array to track used positions
+            const usedPositions = new Set();
+
+            for (let i = 0; i < numberOfRibbons; i++) {
+                const ribbon = document.createElement('div');
+                ribbon.className = 'star';
+
+                // Use grid-based positioning with some randomness
+                let gridX, gridY, positionKey;
+                let attempts = 0;
+
+                do {
+                    gridX = Math.floor(Math.random() * gridCols);
+                    gridY = Math.floor(Math.random() * gridRows);
+                    positionKey = `${gridX}-${gridY}`;
+                    attempts++;
+                } while (usedPositions.has(positionKey) && attempts < 50);
+
+                // If we couldn't find an unused grid position, use random positioning
+                if (attempts >= 50) {
+                    ribbon.style.left = Math.random() * 100 + '%';
+                    ribbon.style.top = Math.random() * 100 + '%';
+                } else {
+                    usedPositions.add(positionKey);
+                    // Add some randomness within the grid cell
+                    const randomOffsetX = (Math.random() - 0.5) * cellWidth * 0.8;
+                    const randomOffsetY = (Math.random() - 0.5) * cellHeight * 0.8;
+
+                    ribbon.style.left = (gridX * cellWidth + cellWidth / 2 + randomOffsetX) + '%';
+                    ribbon.style.top = (gridY * cellHeight + cellHeight / 2 + randomOffsetY) + '%';
+                }
+
+                // Random animation properties for varied blinking
+                ribbon.style.animationDelay = Math.random() * 4 + 's';
+                ribbon.style.animationDuration = (3 + Math.random() * 2) + 's';
+                ribbon.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.8 + Math.random() * 0.4})`;
+
+                // Create the bow ribbon SVG
+                const ribbonSVG = `
+                    <svg fill="#f1b7ff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 579.462 579.461" xml:space="preserve" stroke="#f1b7ff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M365.7,267.032c-3.926,4.44-9.648,7.259-16.025,7.259H231.853c-6.074,0-11.551-2.552-15.453-6.625 c-36.218,54.921-159.23,144.453-159.23,144.453h76.5v84.661c94.379-45.211,137.706-116.714,157.59-171.507 c19.884,54.789,63.21,126.296,157.59,171.507v-84.661h76.5C525.35,412.119,401.389,321.898,365.7,267.032z"></path> <path d="M9.819,265.422c10.129,8.703,27.023,13.048,50.576,13.048c35.343,0,85.151-15.637,150.041-35.333v-90.017 C194.071,134.632,99.214,35.876,0.098,109.749V244.89C-0.074,246.083-1.044,256.092,9.819,265.422z M14.617,233.899 c24.801-17.488,82.036-42.62,176.556-1.766C19.149,295.49,13.684,245.79,14.617,233.899z"></path> <path d="M579.361,109.749c-95.542-71.206-187.131,17.989-208.267,41.074v92.941c63.871,19.4,113.006,34.703,147.973,34.706 c23.55,0,40.444-4.345,50.575-13.048c10.86-9.33,9.894-19.339,9.722-20.529V109.749H579.361z M388.286,232.133 c94.521-40.854,151.754-15.723,176.556,1.766C565.775,245.79,560.31,295.49,388.286,232.133z"></path> <path d="M349.675,258.991c3.382,0,6.12-2.739,6.12-6.120v-9.896V135.048c0-3.381-2.738-6.12-6.12-6.12H231.853 c-3.381,0-6.12,2.739-6.12,6.12v112.923v4.899c0,3.381,2.739,6.12,6.12,6.12H349.675z"></path> </g> </g> </g></svg>
+                `;
+
+                ribbon.innerHTML = ribbonSVG;
+                starsContainer.appendChild(ribbon);
+            }
+        }
+
+        // Countdown Timer
+        function initCountdown() {
+            // Set launch date (30 days from now)
+            const launchDate = new Date();
+            launchDate.setDate(launchDate.getDate() + 30);
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = launchDate.getTime() - now;
+
+                if (distance < 0) {
+                    document.getElementById('countdown').innerHTML = '<h2>🎉 We\'re Live!</h2>';
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // Newsletter Form
+        function initNewsletterForm() {
+            const form = document.getElementById('newsletterForm');
+            const emailInput = document.getElementById('emailInput');
+            const successMessage = document.getElementById('successMessage');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = emailInput.value.trim();
+                if (!email) return;
+
+                // Simulate form submission
+                setTimeout(() => {
+                    successMessage.classList.add('show');
+                    emailInput.value = '';
+
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                }, 500);
+            });
+        }
+
+        // Add some interactive effects
+        function initInteractiveEffects() {
+            // Add hover effect to countdown items
+            // const countdownItems = document.querySelectorAll('.countdown-item');
+            // countdownItems.forEach(item => {
+            //     item.addEventListener('mouseenter', function() {
+            //         this.style.transform = 'translateY(-5px) scale(1.05)';
+            //     });
+
+            //     item.addEventListener('mouseleave', function() {
+            //         this.style.transform = 'translateY(0) scale(1)';
+            //     });
+            // });
+
+            // Add click effect to logo
+            const logo = document.querySelector('.logo');
+            logo.addEventListener('click', function () {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = 'pulse 2s infinite';
+                }, 100);
+            });
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            createStars();
+            // initCountdown();
+            initNewsletterForm();
+            initInteractiveEffects();
+        });
+
+        // Add some sparkle effects on mouse move
+        document.addEventListener('mousemove', function (e) {
+            if (Math.random() > 0.95) { // Only occasionally create sparkles
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.width = '4px';
+                sparkle.style.height = '4px';
+                sparkle.style.background = '#f1b7ff';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '1000';
+                sparkle.style.animation = 'sparkle 1s ease-out forwards';
+
+                document.body.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        });
+
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% {
+                    opacity: 1;
+                    transform: scale(0);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>
